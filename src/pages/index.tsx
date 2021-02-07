@@ -1,57 +1,60 @@
+import CharacterCounter from '@app/components/home/CharacterCounter';
+import Hero from '@app/components/layout/Hero';
+import HeroText from '@app/components/layout/HeroText';
+import HeroTitle from '@app/components/layout/HeroTitle';
+import Navbar from '@app/components/layout/Navbar';
 import Head from 'next/head';
-import { ReactElement } from 'react';
-import styles from '../styles/Home.module.css';
+import React, { ReactElement, useState } from 'react';
 
 const Home = (): ReactElement => {
+  const [counters] = useState([
+    {
+      total: '160',
+      text: "Total of I's in the names of all locations"
+    },
+    {
+      total: '120',
+      text: "Total of E's in the names of all episodes"
+    },
+    {
+      total: '80',
+      text: "Total of C's in the names of all characters"
+    },
+    {
+      total: '2.5s',
+      text: 'Total time'
+    }
+  ]);
+
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
-        <title>Create Next App</title>
+        <title>Rick and Morty | Chipax Challenge</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a href="https://github.com/vercel/next.js/tree/master/examples" className={styles.card}>
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}>
-            <h3>Deploy &rarr;</h3>
-            <p>Instantly deploy your Next.js site to a public URL with Vercel.</p>
-          </a>
+      <Hero>
+        <Navbar />
+        <div className="pt-40">
+          <div className="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
+            <div className="flex flex-col md:w-3/6 justify-center items-start text-center md:text-left">
+              <div className="flex flex-col w-full justify-center lg:items-start overflow-y-hidden">
+                <HeroTitle title="RICK <br/> AND <br/> MORTY" />
+                <HeroText text="Welcome to the Chipax challenge." />
+                <a
+                  className="rounded-full shadow-lg bg-red-400 hover:bg-red-500 py-4 px-6 mb-6 text-white text-xl"
+                  href="https://www.notion.so/Rick-and-Morty-Challenge-84a1b794dc09429fb3178c2a24e7c217"
+                  rel="noopener noreferrer"
+                  target="_blank">
+                  INSTRUCTIONS
+                </a>
+              </div>
+              <div className="flex mt-8">
+                <CharacterCounter counters={counters} />
+              </div>
+            </div>
+          </div>
         </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer">
-          Powered by <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
+      </Hero>
     </div>
   );
 };
