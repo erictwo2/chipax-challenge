@@ -93,10 +93,11 @@ const charactersFilterByNameQuery = gql`
   }
 `;
 
-export const getAllLocationNames = async (name: string): Promise<string[]> => {
+export const getAllLocationNamesWithCharL = async (): Promise<string[]> => {
+  const char = 'l';
   const dataOfFirstPage = await request<LocationsFilterByNameData>(process.env.API_URL, locationsFilterByNameQuery, {
     page: 1,
-    name: name
+    name: char
   });
 
   const remainingPages = getSequentialArray(2, dataOfFirstPage.locations.info.pages);
@@ -104,7 +105,7 @@ export const getAllLocationNames = async (name: string): Promise<string[]> => {
     remainingPages.map((page) => {
       return request<LocationsFilterByNameData>(process.env.API_URL, locationsFilterByNameQuery, {
         page: page,
-        name: name
+        name: char
       });
     })
   );
@@ -117,10 +118,11 @@ export const getAllLocationNames = async (name: string): Promise<string[]> => {
   return namesOfFirstPage.concat(namesOfRemainingPages);
 };
 
-export const getAllEpisodeNames = async (name: string): Promise<string[]> => {
+export const getAllEpisodeNamesWithCharE = async (): Promise<string[]> => {
+  const char = 'e';
   const dataOfFirstPage = await request<EpisodesFilterByNameData>(process.env.API_URL, episodesFilterByNameQuery, {
     page: 1,
-    name: name
+    name: char
   });
 
   const remainingPages = getSequentialArray(2, dataOfFirstPage.episodes.info.pages);
@@ -128,7 +130,7 @@ export const getAllEpisodeNames = async (name: string): Promise<string[]> => {
     remainingPages.map((page) => {
       return request<EpisodesFilterByNameData>(process.env.API_URL, episodesFilterByNameQuery, {
         page: page,
-        name: name
+        name: char
       });
     })
   );
@@ -141,10 +143,11 @@ export const getAllEpisodeNames = async (name: string): Promise<string[]> => {
   return namesOfFirstPage.concat(namesOfRemainingPages);
 };
 
-export const getAllCharacterNames = async (name: string): Promise<string[]> => {
+export const getAllCharacterNamesWithCharC = async (): Promise<string[]> => {
+  const char = 'c';
   const dataOfFirstPage = await request<CharactersFilterByNameData>(process.env.API_URL, charactersFilterByNameQuery, {
     page: 1,
-    name: name
+    name: char
   });
 
   const remainingPages = getSequentialArray(2, dataOfFirstPage.characters.info.pages);
@@ -152,7 +155,7 @@ export const getAllCharacterNames = async (name: string): Promise<string[]> => {
     remainingPages.map((page) => {
       return request<CharactersFilterByNameData>(process.env.API_URL, charactersFilterByNameQuery, {
         page: page,
-        name: name
+        name: char
       });
     })
   );
@@ -169,9 +172,9 @@ export const getCharCounters = async (): Promise<CharCounter[]> => {
   const start = new Date();
 
   const [locationNames, episodeNames, characterNames] = await Promise.all([
-    getAllLocationNames('l'),
-    getAllEpisodeNames('e'),
-    getAllCharacterNames('c')
+    getAllLocationNamesWithCharL(),
+    getAllEpisodeNamesWithCharE(),
+    getAllCharacterNamesWithCharC(),
   ]);
 
   const totalCharacterL = countCharacters(locationNames, 'l');
