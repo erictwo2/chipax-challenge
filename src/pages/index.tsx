@@ -3,7 +3,7 @@ import Hero from '@app/components/layout/Hero';
 import HeroText from '@app/components/layout/HeroText';
 import HeroTitle from '@app/components/layout/HeroTitle';
 import Navbar from '@app/components/layout/Navbar';
-import { CharCounter, Episode, getCharCounters, getEpisodes } from '@app/services/apiService';
+import { CharCounter, Episode, getCharCounters, getEpisodes, Result } from '@app/services/apiService';
 import Head from 'next/head';
 import React, { ReactElement } from 'react';
 import ErrorPage from 'next/error';
@@ -18,7 +18,7 @@ type Error = {
 
 type Props = {
   counters: CharCounter[];
-  episodes: Episode[];
+  episodes: Result<Episode[]>;
   error: Error;
 };
 
@@ -65,12 +65,12 @@ const Home = ({ counters, episodes, error }: Props): ReactElement => {
               <Title1 text="Episodes" />
             </div>
             <div className="w-1/2 text-right">
-              <Title2 text="2.5s" />
+              <Title2 text={`${episodes.totalTime.toFixed(1)}s`} />
               <Title3 text="Total Time" />
             </div>
           </h1>
           <Grid>
-            {episodes.map((episode, index) => (
+            {episodes.data.map((episode, index) => (
               <Card key={index} episode={episode} />
             ))}
           </Grid>
@@ -84,8 +84,7 @@ export default Home;
 
 export const getServerSideProps = async ({ res }) => {
   try {
-    const counters = await getCharCounters();
-    const episodes = await getEpisodes();
+    const [counters, episodes] = await Promise.all([getCharCounters(), getEpisodes()]);
 
     return {
       props: { counters, episodes }

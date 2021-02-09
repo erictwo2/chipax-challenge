@@ -9,7 +9,7 @@ const Navbar = (): ReactElement => {
       <div className="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-6">
         <div className="flex items-center">
           <a>
-            <img src={'/logo.png'} className="h-14" />
+            <img src={'/logo.png'} />
           </a>
         </div>
         <div className="block lg:hidden pr-4">

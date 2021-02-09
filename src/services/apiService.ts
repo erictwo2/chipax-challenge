@@ -8,27 +8,33 @@ export type CharCounter = {
   suffix?: string;
 };
 
-type Origin = {
-  name: string;
-};
-
 export type Episode = {
   name: string;
   season: number;
   episode: number;
-  originsOfCharacters: Origin[];
+  originsOfCharacters: string[];
+};
+
+export type Result<Data> = {
+  data: Data;
+  totalTime: number;
 };
 
 type ApiLocation = {
+  id: string;
   name: string;
 };
 
 type ApiEpisode = {
+  id: string;
   name: string;
+  episode: string;
+  characters: ApiCharacter[];
 };
 
 type ApiCharacter = {
   name: string;
+  origin: ApiLocation;
 };
 
 type Info = {
@@ -38,21 +44,21 @@ type Info = {
   prev: string | null;
 };
 
-type LocationsFilterByNameData = {
+type LocationsPage = {
   locations: {
     info: Info;
     results: ApiLocation[];
   };
 };
 
-type EpisodesFilterByNameData = {
+type EpisodesPage = {
   episodes: {
     info: Info;
     results: ApiEpisode[];
   };
 };
 
-type CharactersFilterByNameData = {
+type CharactersPage = {
   characters: {
     info: Info;
     results: ApiCharacter[];
@@ -63,9 +69,7 @@ const locationsFilterByNameQuery = gql`
   query($page: Int!, $name: String!) {
     locations(page: $page, filter: { name: $name }) {
       info {
-        count
         pages
-        next
       }
       results {
         name
@@ -78,9 +82,7 @@ const episodesFilterByNameQuery = gql`
   query($page: Int!, $name: String!) {
     episodes(page: $page, filter: { name: $name }) {
       info {
-        count
         pages
-        next
       }
       results {
         name
@@ -93,9 +95,7 @@ const charactersFilterByNameQuery = gql`
   query($page: Int!, $name: String!) {
     characters(page: $page, filter: { name: $name }) {
       info {
-        count
         pages
-        next
       }
       results {
         name
@@ -104,9 +104,31 @@ const charactersFilterByNameQuery = gql`
   }
 `;
 
+const episodesQuery = gql`
+  query($page: Int!) {
+    episodes(page: $page) {
+      info {
+        pages
+      }
+      results {
+        id
+        name
+        episode
+        characters {
+          name
+          origin {
+            id
+            name
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const getAllLocationNamesWithCharL = async (): Promise<string[]> => {
   const char = 'l';
-  const dataOfFirstPage = await request<LocationsFilterByNameData>(process.env.API_URL, locationsFilterByNameQuery, {
+  const dataOfFirstPage = await request<LocationsPage>(process.env.API_URL, locationsFilterByNameQuery, {
     page: 1,
     name: char
   });
@@ -114,7 +136,7 @@ export const getAllLocationNamesWithCharL = async (): Promise<string[]> => {
   const remainingPages = getSequentialArray(2, dataOfFirstPage.locations.info.pages);
   const dataOfRemainingPages = await Promise.all(
     remainingPages.map((page) => {
-      return request<LocationsFilterByNameData>(process.env.API_URL, locationsFilterByNameQuery, {
+      return request<LocationsPage>(process.env.API_URL, locationsFilterByNameQuery, {
         page: page,
         name: char
       });
@@ -131,7 +153,7 @@ export const getAllLocationNamesWithCharL = async (): Promise<string[]> => {
 
 export const getAllEpisodeNamesWithCharE = async (): Promise<string[]> => {
   const char = 'e';
-  const dataOfFirstPage = await request<EpisodesFilterByNameData>(process.env.API_URL, episodesFilterByNameQuery, {
+  const dataOfFirstPage = await request<EpisodesPage>(process.env.API_URL, episodesFilterByNameQuery, {
     page: 1,
     name: char
   });
@@ -139,7 +161,7 @@ export const getAllEpisodeNamesWithCharE = async (): Promise<string[]> => {
   const remainingPages = getSequentialArray(2, dataOfFirstPage.episodes.info.pages);
   const dataOfRemainingPages = await Promise.all(
     remainingPages.map((page) => {
-      return request<EpisodesFilterByNameData>(process.env.API_URL, episodesFilterByNameQuery, {
+      return request<EpisodesPage>(process.env.API_URL, episodesFilterByNameQuery, {
         page: page,
         name: char
       });
@@ -156,7 +178,7 @@ export const getAllEpisodeNamesWithCharE = async (): Promise<string[]> => {
 
 export const getAllCharacterNamesWithCharC = async (): Promise<string[]> => {
   const char = 'c';
-  const dataOfFirstPage = await request<CharactersFilterByNameData>(process.env.API_URL, charactersFilterByNameQuery, {
+  const dataOfFirstPage = await request<CharactersPage>(process.env.API_URL, charactersFilterByNameQuery, {
     page: 1,
     name: char
   });
@@ -164,7 +186,7 @@ export const getAllCharacterNamesWithCharC = async (): Promise<string[]> => {
   const remainingPages = getSequentialArray(2, dataOfFirstPage.characters.info.pages);
   const dataOfRemainingPages = await Promise.all(
     remainingPages.map((page) => {
-      return request<CharactersFilterByNameData>(process.env.API_URL, charactersFilterByNameQuery, {
+      return request<CharactersPage>(process.env.API_URL, charactersFilterByNameQuery, {
         page: page,
         name: char
       });
@@ -177,6 +199,24 @@ export const getAllCharacterNamesWithCharC = async (): Promise<string[]> => {
     .flatMap((character) => character.map((character) => character.name));
 
   return namesOfFirstPage.concat(namesOfRemainingPages);
+};
+
+export const getAllEpisodes = async (): Promise<ApiEpisode[]> => {
+  const dataOfFirstPage = await request<EpisodesPage>(process.env.API_URL, episodesQuery, { page: 1 });
+
+  const remainingPages = getSequentialArray(2, dataOfFirstPage.episodes.info.pages);
+  const dataOfRemainingPages = await Promise.all(
+    remainingPages.map((page) => {
+      return request<EpisodesPage>(process.env.API_URL, episodesQuery, { page: page });
+    })
+  );
+
+  const episodesOfFirstPage = dataOfFirstPage.episodes.results.map((episode) => episode);
+  const episodesOfRemainingPages = dataOfRemainingPages
+    .map((data) => data.episodes.results)
+    .flatMap((episode) => episode.map((episode) => episode));
+
+  return episodesOfFirstPage.concat(episodesOfRemainingPages);
 };
 
 export const getCharCounters = async (): Promise<CharCounter[]> => {
@@ -216,58 +256,33 @@ export const getCharCounters = async (): Promise<CharCounter[]> => {
   ];
 };
 
-export const getEpisodes = async (): Promise<Episode[]> => {
-  return [
-    {
-      name: 'Pilot',
-      season: 1,
-      episode: 1,
-      originsOfCharacters: [
-        {
-          name: 'unknown'
-        },
-        {
-          name: 'Signus 5 Expanse'
-        },
-        {
-          name: 'Post-Apocalyptic Earth'
-        }
-      ]
-    },
-    {
-      name: 'Close Rick-counters of the Rick Kind',
-      season: 1,
-      episode: 2,
-      originsOfCharacters: [
-        {
-          name: 'unknown'
-        },
-        {
-          name: 'Signus 5 Expanse'
-        }
-      ]
-    },
-    {
-      name: 'The Rickshank Rickdemption',
-      season: 1,
-      episode: 3,
-      originsOfCharacters: [
-        {
-          name: 'Purge Planet'
-        },
-        {
-          name: 'Venzenulon 7'
-        },
-        {
-          name: 'Bepis 9'
-        },
-        {
-          name: 'Beta-Seven'
-        },
-        {
-          name: 'Earth (C-500A)'
-        }
-      ]
-    }
-  ];
+export const getEpisodes = async (): Promise<Result<Episode[]>> => {
+  const start = new Date();
+
+  const apiEpisodes = await getAllEpisodes();
+
+  const episodes: Episode[] = apiEpisodes.map((apiEpisode) => {
+    const origins = apiEpisode.characters
+      .map((character) => character.origin)
+      .filter((character, index, array) => array.map((x) => x.id).indexOf(character.id) == index)
+      .map((character) => character.name);
+
+    const season = parseInt(apiEpisode.episode.match(/S(.*)E/)[1]);
+    const episode = parseInt(apiEpisode.episode.match(/E(.*)$/)[1]);
+
+    return {
+      name: apiEpisode.name,
+      season: season,
+      episode: episode,
+      originsOfCharacters: origins
+    };
+  });
+
+  const end = new Date();
+  const totalTime = (end.getTime() - start.getTime()) / 1000;
+
+  return {
+    data: episodes,
+    totalTime: totalTime
+  };
 };
