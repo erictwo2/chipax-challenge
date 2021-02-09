@@ -7,9 +7,9 @@ const Navbar = (): ReactElement => {
   return (
     <nav className="w-full z-30 top-0 text-white">
       <div className="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-6">
-        <div className="pl-4 flex items-center">
+        <div className="flex items-center">
           <a>
-            <img src={'/logo.png'} className="h-14" />
+            <img src={'/logo.png'} />
           </a>
         </div>
         <div className="block lg:hidden pr-4">
@@ -20,9 +20,7 @@ const Navbar = (): ReactElement => {
             </svg>
           </button>
         </div>
-        <div
-          className="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden mt-2 lg:mt-0 bg-white lg:bg-transparent text-black p-4 lg:p-0 z-20"
-          id="nav-content">
+        <div className="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden mt-2 lg:mt-0 bg-white lg:bg-transparent text-black p-4 lg:p-0 z-20">
           <ul className="list-reset lg:flex justify-end flex-1 items-center">
             <NavbarLink href="https://www.linkedin.com/in/eric-hidalgo-72835b43">
               <Linkedin />

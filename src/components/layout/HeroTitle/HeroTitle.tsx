@@ -4,7 +4,7 @@ const HeroTitle = ({ title }: { title: string }): ReactElement => {
   return (
     <div
       dangerouslySetInnerHTML={{ __html: `${title}` }}
-      className="text-8xl text-gray-100 font-black tracking-tight text-shadow-xl"
+      className="text-8xl text-white font-black tracking-tight text-shadow-xl"
     />
   );
 };
