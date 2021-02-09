@@ -2,21 +2,32 @@ import { getSequentialArray } from '@app/utils/arrayUtils';
 import { countCharacters } from '@app/utils/stringUtils';
 import { request, gql } from 'graphql-request';
 
-type CharCounter = {
+export type CharCounter = {
   total: number;
   text: string;
   suffix?: string;
 };
 
-type Location = {
+type Origin = {
   name: string;
 };
 
-type Episode = {
+export type Episode = {
+  name: string;
+  season: number;
+  episode: number;
+  originsOfCharacters: Origin[];
+};
+
+type ApiLocation = {
   name: string;
 };
 
-type Character = {
+type ApiEpisode = {
+  name: string;
+};
+
+type ApiCharacter = {
   name: string;
 };
 
@@ -30,21 +41,21 @@ type Info = {
 type LocationsFilterByNameData = {
   locations: {
     info: Info;
-    results: Location[];
+    results: ApiLocation[];
   };
 };
 
 type EpisodesFilterByNameData = {
   episodes: {
     info: Info;
-    results: Episode[];
+    results: ApiEpisode[];
   };
 };
 
 type CharactersFilterByNameData = {
   characters: {
     info: Info;
-    results: Character[];
+    results: ApiCharacter[];
   };
 };
 
@@ -174,7 +185,7 @@ export const getCharCounters = async (): Promise<CharCounter[]> => {
   const [locationNames, episodeNames, characterNames] = await Promise.all([
     getAllLocationNamesWithCharL(),
     getAllEpisodeNamesWithCharE(),
-    getAllCharacterNamesWithCharC(),
+    getAllCharacterNamesWithCharC()
   ]);
 
   const totalCharacterL = countCharacters(locationNames, 'l');
@@ -201,6 +212,62 @@ export const getCharCounters = async (): Promise<CharCounter[]> => {
       total: totalTime,
       text: 'Total time',
       suffix: 's'
+    }
+  ];
+};
+
+export const getEpisodes = async (): Promise<Episode[]> => {
+  return [
+    {
+      name: 'Pilot',
+      season: 1,
+      episode: 1,
+      originsOfCharacters: [
+        {
+          name: 'unknown'
+        },
+        {
+          name: 'Signus 5 Expanse'
+        },
+        {
+          name: 'Post-Apocalyptic Earth'
+        }
+      ]
+    },
+    {
+      name: 'Close Rick-counters of the Rick Kind',
+      season: 1,
+      episode: 2,
+      originsOfCharacters: [
+        {
+          name: 'unknown'
+        },
+        {
+          name: 'Signus 5 Expanse'
+        }
+      ]
+    },
+    {
+      name: 'The Rickshank Rickdemption',
+      season: 1,
+      episode: 3,
+      originsOfCharacters: [
+        {
+          name: 'Purge Planet'
+        },
+        {
+          name: 'Venzenulon 7'
+        },
+        {
+          name: 'Bepis 9'
+        },
+        {
+          name: 'Beta-Seven'
+        },
+        {
+          name: 'Earth (C-500A)'
+        }
+      ]
     }
   ];
 };
