@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 
 type Props = {
   title: string;
@@ -7,6 +7,7 @@ type Props = {
 const HeroTitle = ({ title }: Props): ReactElement => {
   return (
     <div
+      data-testid="hero-title"
       dangerouslySetInnerHTML={{ __html: `${title}` }}
       className="text-7xl md:text-8xl text-white font-black tracking-tight text-shadow-xl"
     />

@@ -15,7 +15,13 @@ const CharacterCounter = ({ counters }: Props): ReactElement => {
   return (
     <div className="w-full flex items-start justify-center -space-x-1 md:space-x-6 lg:space-x-12">
       {counters.map((charCounter, index) => (
-        <CharCounter key={index} total={charCounter.total} text={charCounter.text} suffix={charCounter.suffix} />
+        <CharCounter
+          data-testid={`char-counter-${index}`}
+          key={index}
+          total={charCounter.total}
+          text={charCounter.text}
+          suffix={charCounter.suffix}
+        />
       ))}
     </div>
   );

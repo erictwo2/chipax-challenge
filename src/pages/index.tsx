@@ -3,7 +3,7 @@ import Hero from '@app/components/layout/Hero';
 import HeroText from '@app/components/layout/HeroText';
 import HeroTitle from '@app/components/layout/HeroTitle';
 import Navbar from '@app/components/layout/Navbar';
-import { CharCounter, Episode, getCharCounters, getEpisodes, Result } from '@app/services/apiService';
+import { CharCounter, Episode, getCharCounters, getEpisodesLocations, Result } from '@app/services/apiService';
 import Head from 'next/head';
 import React, { ReactElement } from 'react';
 import ErrorPage from 'next/error';
@@ -86,7 +86,7 @@ export default Home;
 
 export const getServerSideProps = async ({ res }) => {
   try {
-    const [counters, episodes] = await Promise.all([getCharCounters(), getEpisodes()]);
+    const [counters, episodes] = await Promise.all([getCharCounters(), getEpisodesLocations()]);
 
     return {
       props: { counters, episodes }
