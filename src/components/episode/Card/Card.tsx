@@ -16,7 +16,7 @@ type Props = {
 
 const Card = ({ episode }: Props): ReactElement => {
   return (
-    <div className="p-6 rounded-xl border border-gray-200 shadow-lg">
+    <div className="p-6 rounded-xl border border-gray-200 shadow-lg" data-aos="fade-up">
       <div className="mb-4">
         <Title2 data-testid="episode-name" text={episode.name} />
       </div>

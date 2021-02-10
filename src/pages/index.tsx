@@ -50,7 +50,7 @@ const Home = ({ counters, episodes, error }: Props): ReactElement => {
                 />
               </div>
             </div>
-            <div className="flex mt-6 lg:mt-10">
+            <div className="flex mt-6 lg:mt-10" data-aos-delay="400" data-aos="fade-right">
               <CharCounters counters={counters} />
             </div>
           </HeroContent>
