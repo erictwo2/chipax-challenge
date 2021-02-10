@@ -26,15 +26,15 @@ Consultar los `character`, `locations` y `episodes` de [https://rickandmortyapi.
 ## Tecnologías y estructura de proyecto
 
 Este proyecto esta desarrollado usando [React](https://es.reactjs.org), [Next.js](https://nextjs.org), TypeScript, [GraphQL Request](https://github.com/prisma-labs/graphql-request),
-[TailwindCSS](https://tailwindcss.com), [ESLint](https://eslint.org) + [Prettier](https://prettier.io), [Jest](https://jestjs.io), [Husky](https://typicode.github.io/husky) y
-[Release It](https://github.com/release-it/release-it). 
+[TailwindCSS](https://tailwindcss.com), [ESLint](https://eslint.org) + [Prettier](https://prettier.io),  [Jest](https://jestjs.io) + [Enzyme](https://enzymejs.github.io/enzyme/), [Husky](https://typicode.github.io/husky) y
+[Release It](https://github.com/release-it/release-it).
 
 Los archivos están estructurados de la siguiente manera:
 
     .
     ├── public               # Archivos estáticos
     ├── src
-        ├── components       # Componentes reutilizables sin estado.  Se organizan de manera lógica y no tienen que tener más de dos niveles de profundidad.
+        ├── components       # Componentes reutilizables sin estado.
         ├── pages            # Páginas del proyecto.
         ├── services         # Servicios para lógica de negocio y/o comunicación con API's.
         ├── utils            # Herramientas y utilidades varias.
@@ -69,7 +69,4 @@ yarn run lint
 
 ## Testing
 
-Las pruebas se crean junto con el nombre del componente, utilizando el mismo nombre y el sufijo `.(.test|.spec).(js|jsx|ts|tsx)`, por ejemplo `header.test.tsx`. Se utiliza **[Jest](https://jestjs.io/)** como Framework de Testing.
-
-En el código se agregó `testID` en todos los componentes críticos de la interfaz de usuario para hacer
-las pruebas más fáciles de entender.
+Las pruebas se crean junto con el nombre del componente, utilizando el mismo nombre y el sufijo `.(.test|.spec).(js|jsx|ts|tsx)`, por ejemplo `header.test.tsx`. Se utiliza **[Jest](https://jestjs.io) + [Enzyme](https://enzymejs.github.io/enzyme/)** como Framework de Testing.
