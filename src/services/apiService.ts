@@ -256,16 +256,22 @@ export const getCharCounters = async (): Promise<CharCounter[]> => {
   ];
 };
 
-export const getEpisodes = async (): Promise<Result<Episode[]>> => {
+export const getEpisodesLocations = async (): Promise<Result<Episode[]>> => {
   const start = new Date();
 
   const apiEpisodes = await getAllEpisodes();
 
   const episodes: Episode[] = apiEpisodes.map((apiEpisode) => {
-    const origins = apiEpisode.characters
-      .map((character) => character.origin)
-      .filter((character, index, array) => array.map((x) => x.id).indexOf(character.id) == index)
-      .map((character) => character.name);
+    const origins = apiEpisode.characters.map((character) => character.origin.name);
+
+    let existing = {};
+    let originsWithoutDuplicates = [];
+    origins.forEach((origin) => {
+      if (!existing[origin]) {
+        originsWithoutDuplicates.push(origin);
+        existing[origin] = true;
+      }
+    });
 
     const season = parseInt(apiEpisode.episode.match(/S(.*)E/)[1]);
     const episode = parseInt(apiEpisode.episode.match(/E(.*)$/)[1]);
@@ -274,7 +280,7 @@ export const getEpisodes = async (): Promise<Result<Episode[]>> => {
       name: apiEpisode.name,
       season: season,
       episode: episode,
-      originsOfCharacters: origins
+      originsOfCharacters: originsWithoutDuplicates
     };
   });
 
