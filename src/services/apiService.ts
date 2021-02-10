@@ -65,7 +65,7 @@ type CharactersPage = {
   };
 };
 
-const locationsFilterByNameQuery = gql`
+export const locationsFilterByNameQuery = gql`
   query($page: Int!, $name: String!) {
     locations(page: $page, filter: { name: $name }) {
       info {
@@ -78,7 +78,7 @@ const locationsFilterByNameQuery = gql`
   }
 `;
 
-const episodesFilterByNameQuery = gql`
+export const episodesFilterByNameQuery = gql`
   query($page: Int!, $name: String!) {
     episodes(page: $page, filter: { name: $name }) {
       info {
@@ -91,7 +91,7 @@ const episodesFilterByNameQuery = gql`
   }
 `;
 
-const charactersFilterByNameQuery = gql`
+export const charactersFilterByNameQuery = gql`
   query($page: Int!, $name: String!) {
     characters(page: $page, filter: { name: $name }) {
       info {
@@ -104,7 +104,7 @@ const charactersFilterByNameQuery = gql`
   }
 `;
 
-const episodesQuery = gql`
+export const episodesQuery = gql`
   query($page: Int!) {
     episodes(page: $page) {
       info {
