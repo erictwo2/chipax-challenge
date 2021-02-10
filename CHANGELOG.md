@@ -1,3 +1,17 @@
+# [0.3.0](https://github.com/erictwo2/chipax-challenge/compare/0.2.0...0.3.0) (2021-02-10)
+
+
+### Bug Fixes
+
+* fixed algorithm that removes duplicates ([e2f2eec](https://github.com/erictwo2/chipax-challenge/commit/e2f2eec63a00f22df4ed2547bbecf3edaf2f00f4))
+* fixed to be case sensitive ([363a8b0](https://github.com/erictwo2/chipax-challenge/commit/363a8b099d41260f88f591d4c40f0823ddde04e4))
+
+
+### Features
+
+* **home:** added animations ([2ceec8e](https://github.com/erictwo2/chipax-challenge/commit/2ceec8e7fc806801a72623afc410bebb3895ffd8))
+* **home:** added responsive design ([3d7046b](https://github.com/erictwo2/chipax-challenge/commit/3d7046b8c2079705480ffa6b75d521d1e0ea0955))
+
 # 0.2.0 (2021-02-09)
 
 
