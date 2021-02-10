@@ -1,15 +1,11 @@
-import { ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 
-const Hero = ({ children }: { children: ReactElement | ReactElement[] }): ReactElement => {
-  return (
-    <div
-      className="bg-cover bg-right h-screen w-screen"
-      style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.7)), url(/rick-and-morty-in-dragon-ball-wallpaper.jpg)`
-      }}>
-      {children}
-    </div>
-  );
+type Props = {
+  children: ReactElement | ReactElement[];
+};
+
+const Hero = ({ children }: Props): ReactElement => {
+  return <div className="bg-cover bg-center lg:bg-right h-screen w-screen bg-image">{children}</div>;
 };
 
 export default Hero;

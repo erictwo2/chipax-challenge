@@ -16,19 +16,22 @@ type Props = {
 
 const Card = ({ episode }: Props): ReactElement => {
   return (
-    <div className="p-6 rounded-xl border border-gray-200 shadow-lg">
+    <div className="p-6 rounded-xl border border-gray-200 shadow-lg" data-aos="fade-up">
       <div className="mb-4">
-        <Title2 text={episode.name} />
+        <Title2 data-testid="episode-name" text={episode.name} />
       </div>
       <div className="-mt-4 mb-4">
-        <Title3 text={`Season ${episode.season} - Episode ${episode.episode}`} />
+        <Title3 data-testid="episode-description" text={`Season ${episode.season} - Episode ${episode.episode}`} />
       </div>
       <div className="mb-5">
-        <Body1 text={`Number of character locations: ${episode.originsOfCharacters.length}`} />
+        <Body1
+          data-testid="number-character-locations"
+          text={`Number of character locations: ${episode.originsOfCharacters.length}`}
+        />
       </div>
       <div className="flex flex-wrap">
         {episode.originsOfCharacters.map((origin, index) => (
-          <Pill key={index} text={origin} />
+          <Pill data-testid={`character-origin-${index}`} key={index} text={origin} />
         ))}
       </div>
     </div>
