@@ -11,7 +11,7 @@ type Props = {
   counters: CharCounter[];
 };
 
-const CharacterCounter = ({ counters }: Props): ReactElement => {
+const CharCounters = ({ counters }: Props): ReactElement => {
   return (
     <div className="w-full flex items-start justify-center -space-x-1 md:space-x-6 lg:space-x-12">
       {counters.map((charCounter, index) => (
@@ -27,4 +27,4 @@ const CharacterCounter = ({ counters }: Props): ReactElement => {
   );
 };
 
-export default CharacterCounter;
+export default CharCounters;

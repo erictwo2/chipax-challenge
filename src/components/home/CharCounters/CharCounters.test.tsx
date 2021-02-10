@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import CharacterCounter from './CharacterCounter';
+import CharCounters from './CharCounters';
 
 describe('Char Counters', () => {
   const counters = [
@@ -24,11 +24,11 @@ describe('Char Counters', () => {
   ];
 
   test('It should render', () => {
-    shallow(<CharacterCounter counters={counters} />);
+    shallow(<CharCounters counters={counters} />);
   });
 
   test('Counters should be displayed', () => {
-    const wrapper = shallow(<CharacterCounter counters={counters} />);
+    const wrapper = shallow(<CharCounters counters={counters} />);
 
     counters.forEach((counter, index) => {
       const element = wrapper.find({ 'data-testid': `char-counter-${index}` });
