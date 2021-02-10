@@ -7,9 +7,13 @@ type CharCounter = {
   suffix?: string;
 };
 
-const CharacterCounter = ({ counters }: { counters: CharCounter[] }): ReactElement => {
+type Props = {
+  counters: CharCounter[];
+};
+
+const CharacterCounter = ({ counters }: Props): ReactElement => {
   return (
-    <div className="flex flex items-start space-x-12">
+    <div className="w-full flex items-start justify-center -space-x-1 md:space-x-6 lg:space-x-12">
       {counters.map((charCounter, index) => (
         <CharCounter key={index} total={charCounter.total} text={charCounter.text} suffix={charCounter.suffix} />
       ))}

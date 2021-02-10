@@ -1,13 +1,17 @@
 import { ReactElement } from 'react';
 import useTypewriter from 'react-typewriter-hook/build/useTypewriter';
 
-const HeroText = ({ text }: { text: string }): ReactElement => {
+type Props = {
+  text: string;
+};
+
+const HeroText = ({ text }: Props): ReactElement => {
   const textWritter = useTypewriter(text);
 
   return (
     <div
-      dangerouslySetInnerHTML={{ __html: `${textWritter}` }}
-      className="text-xl text-white font-light text-shadow-md mt-6 mb-6 pl-2 ml-1 border-l-4 border-red-600 h-8"
+      dangerouslySetInnerHTML={{ __html: `${text}` }}
+      className="text-xl text-white font-light text-shadow-md my-10 md:my-6 pl-2 ml-1 border-l-none md:border-l-4 md:border-red-400 h-8"
     />
   );
 };
