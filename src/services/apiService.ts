@@ -264,8 +264,8 @@ export const getEpisodesLocations = async (): Promise<Result<Episode[]>> => {
   const episodes: Episode[] = apiEpisodes.map((apiEpisode) => {
     const origins = apiEpisode.characters.map((character) => character.origin.name);
 
-    let existing = {};
-    let originsWithoutDuplicates = [];
+    const existing = {};
+    const originsWithoutDuplicates = [];
     origins.forEach((origin) => {
       if (!existing[origin]) {
         originsWithoutDuplicates.push(origin);
