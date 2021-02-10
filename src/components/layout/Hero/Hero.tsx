@@ -5,11 +5,7 @@ type Props = {
 };
 
 const Hero = ({ children }: Props): ReactElement => {
-  return (
-    <div className="bg-cover bg-center lg:bg-right h-screen w-screen bg-image">
-      {children}
-    </div>
-  );
+  return <div className="bg-cover bg-center lg:bg-right h-screen w-screen bg-image">{children}</div>;
 };
 
 export default Hero;

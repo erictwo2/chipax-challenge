@@ -44,7 +44,10 @@ const Home = ({ counters, episodes, error }: Props): ReactElement => {
                   <HeroTitle title="RICK <br/> AND <br/> MORTY" />
                   <HeroText text="Welcome to the Chipax challenge solved by Eric Hidalgo." />
                   <div className="mt-4 md:mt-3 mb-4">
-                    <ButtonLink label="INSTRUCTIONS" href="https://www.notion.so/Rick-and-Morty-Challenge-84a1b794dc09429fb3178c2a24e7c217" />
+                    <ButtonLink
+                      label="INSTRUCTIONS"
+                      href="https://www.notion.so/Rick-and-Morty-Challenge-84a1b794dc09429fb3178c2a24e7c217"
+                    />
                   </div>
                 </div>
                 <div className="flex mt-6 lg:mt-10">
