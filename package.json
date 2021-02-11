@@ -60,7 +60,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn run lint && yarn run test:badges && git add -A .",
+      "pre-commit": "yarn run lint && yarn run test:badges",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   }
