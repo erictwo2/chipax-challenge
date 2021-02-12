@@ -18,5 +18,6 @@ module.exports = {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.jest.json'
     }
-  }
+  },
+  coverageReporters: ['json-summary', 'text', 'lcov']
 };

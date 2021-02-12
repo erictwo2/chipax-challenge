@@ -1,5 +1,16 @@
 ![Chipax](chipax-header.jpg)
 
+
+<p align="center">
+  <img src="https://vercelbadge.vercel.app/api/erictwo2/chipax-challenge" alt="Deployment status in vercel badge"/>
+  <img src="https://img.shields.io/github/v/release/erictwo2/chipax-challenge.svg" alt="Release version badge"/>
+  <img src="./coverage/badge-branches.svg" alt="Test coverage branches badge"/>
+  <img src="./coverage/badge-functions.svg" alt="Test coverage functions badge"/>
+  <img src="./coverage/badge-lines.svg" alt="Test coverage lines badge"/>
+  <img src="./coverage/badge-statements.svg" alt="Test coverage statements badge"/>
+</p>
+<br/>
+
 ### [🤝 Ir a CONTRIBUTING.md para ver las convenciones utilizadas](CONTRIBUTING.md)
 
 ### [📖 Ir a CHANGELOG.md para ver el registro de cambios](CHANGELOG.md)
